@@ -1,152 +1,412 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Xatar Majestic — GTA RP Hub</title>
-<meta name="theme-color" content="#0b0b0f">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-/* RESET & BASE */
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;font-family:'Inter',sans-serif;background:#050407;color:#fff;overflow-x:hidden;}
-img{max-width:100%;display:block;}
-a{color:inherit;text-decoration:none;}
-button{font:inherit;cursor:pointer;}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Xatar Majestic — GTA RP Developer</title>
+  <meta name="theme-color" content="#0b0b0f">
+  <style>
+    /* ===========================
+       Reset / Base
+       =========================== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:#050407;color:#fff;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
 
-/* BACKGROUNDS & PARTICLES */
-.bg{position:fixed;inset:0;background:#050407 url('bg.jpg') center/cover no-repeat;z-index:-10;transition:transform .75s ease;}
-.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.65));pointer-events:none;}
-.grain{position:fixed;inset:0;z-index:-9;opacity:0.05;pointer-events:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="t"><feTurbulence baseFrequency="0.85" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23t)"/></svg>');background-size:320px 320px;mix-blend-mode:overlay;}
+    /* ===========================
+       Background layers
+       =========================== */
+    .bg {
+      position:fixed;inset:0;z-index:-10;overflow:hidden;background:#050407 center/cover no-repeat;
+      transform-origin:center center;
+      transition:transform .75s cubic-bezier(.2,.9,.3,1);
+      filter:contrast(1.06) saturate(1.12);
+    }
+    .bg::after{
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.6));
+      pointer-events:none;mix-blend-mode:multiply;
+    }
 
-/* CUSTOM CURSOR */
-.cursor{position:fixed;top:0;left:0;width:24px;height:24px;border:2px solid #ff6b9a;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition: transform .1s ease,width .15s ease,height .15s ease,background .3s ease;z-index:9999;}
-.cursor.active{width:40px;height:40px;background:rgba(255,107,154,0.25);}
-.cursor.click{background:#ff6b9a;transform:translate(-50%,-50%) scale(0.8);}
+    /* grain texture */
+    .grain{
+      position:fixed;inset:0;z-index:-8;opacity:0.06;pointer-events:none;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="t"><feTurbulence baseFrequency="0.9" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23t)"/></svg>');
+      background-size:320px 320px;
+      mix-blend-mode:overlay;
+    }
 
-/* WRAPPER & HERO */
-.wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;gap:24px;}
-.card{display:flex;flex-wrap:wrap;gap:26px;align-items:center;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(10px);padding:28px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,0.6);transition:transform .45s ease;}
-.card:hover{transform:translateY(-12px);}
-.hero{flex:0 0 360px;height:240px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);box-shadow:0 12px 34px rgba(0,0,0,0.55);position:relative;background:#0b0b0d;}
-.hero img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform .9s;}
-.card:hover .hero img{transform:scale(1.12) translateY(-6px);}
-.badge{position:absolute;left:14px;top:14px;background:linear-gradient(90deg,#ff7a00,#ff2d95);padding:6px 10px;border-radius:999px;font-weight:800;color:#09060b;font-size:13px;box-shadow:0 6px 18px rgba(255,90,70,0.14);}
+    /* canvas fx */
+    #fx { position:fixed;inset:0;z-index:-6;pointer-events:none;mix-blend-mode:screen;opacity:0.95 }
 
-/* CONTENT & SKILLS */
-.content{flex:1;padding:6px 4px;}
-.name-wrap{display:flex;flex-direction:column;gap:6px;}
-.name{font-family:'Bebas Neue',Impact,sans-serif;font-size:56px;background:linear-gradient(90deg,#ffd36b,#ff6b9a);-webkit-background-clip:text;color:transparent;text-shadow:0 10px 40px rgba(255,80,60,0.06);}
-.tagline{font-size:15px;color:rgba(255,255,255,0.85);font-weight:700;}
-.desc{margin-top:12px;color:rgba(255,255,255,0.78);font-size:15px;line-height:1.45;max-width:820px;}
-.highlight{color:#ffd36b;font-weight:800;}
-.skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);font-weight:700;font-size:13px;}
-.chip .dot{width:10px;height:10px;border-radius:50%;}
+    /* layout container */
+    .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;gap:18px}
 
-/* CTA */
-.cta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(90deg,#ff6b9a,#ffd36b);color:#0b0b0d;padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;box-shadow:0 10px 30px rgba(255,110,90,0.14);transition:transform .18s;}
-.btn-primary:active{transform:translateY(2px);}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:12px;color:rgba(255,255,255,0.95);}
+    /* main card */
+    .card{
+      width:min(1200px,96%);display:flex;gap:26px;align-items:center;
+      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(8px);
+      padding:28px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,0.6);
+      transition:transform .45s cubic-bezier(.2,.9,.3,1);
+      transform:translateY(0);
+    }
+    .card:hover{transform:translateY(-10px)}
 
-/* META BOX */
-.meta{width:260px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);font-size:14px;color:rgba(255,255,255,0.9);}
-.meta h4{font-size:13px;color:#ffd36b;margin-bottom:8px;}
-.meta .line{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px dashed rgba(255,255,255,0.03);}
-.meta .val{font-weight:800;color:#fff;}
-footer.small{margin-top:18px;color:rgba(255,255,255,0.55);font-size:13px;text-align:center;}
+    /* hero image */
+    .hero{
+      flex:0 0 360px;height:240px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 12px 34px rgba(0,0,0,0.55);position:relative;background:#0b0b0d;
+    }
+    .hero img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform .9s}
+    .card:hover .hero img{transform:scale(1.12) translateY(-6px)}
+    .badge{position:absolute;left:14px;top:14px;background:linear-gradient(90deg,#ff7a00,#ff2d95);padding:6px 10px;border-radius:999px;font-weight:800;color:#09060b;box-shadow:0 6px 18px rgba(255,90,70,0.14);font-size:13px}
 
-/* PORTFOLIO GRID */
-.section{width:min(1200px,96%);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.55);}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.card-small{background:rgba(0,0,0,0.55);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
-.flex-row{display:flex;gap:10px;align-items:center;}
-.pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700;}
+    /* content */
+    .content{flex:1;padding:6px 4px}
+    .title-row{display:flex;align-items:end;gap:14px;flex-wrap:wrap}
+    .name-wrap{display:flex;flex-direction:column;gap:6px}
+    .name{
+      font-family:"Bebas Neue", Impact, sans-serif;font-size:56px;line-height:1;
+      background:linear-gradient(90deg,#ffd36b,#ff6b9a);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 10px 40px rgba(255,80,60,0.06);letter-spacing:1px
+    }
+    .tagline{font-size:15px;color:rgba(255,255,255,0.85);font-weight:700}
 
-/* RESPONSIVE */
-@media(max-width:1020px){.card{flex-direction:column;align-items:center;padding:18px}.hero{width:92%;height:260px}.meta{width:92%}.name{font-size:44px;text-align:center}.content{text-align:center}.grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.grid{grid-template-columns:1fr}.name{font-size:36px}.hero{height:200px;}}
+    .desc{margin-top:12px;color:rgba(255,255,255,0.78);font-size:15px;max-width:820px;line-height:1.45}
+    .highlight{color:#ffd36b;font-weight:800}
 
-/* ANIMATIONS */
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-.fadeInUp{opacity:0;transform:translateY(20px);animation:fadeInUp .6s forwards;}
-@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
-</style>
+    /* skills */
+    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);font-weight:700;font-size:13px}
+    .chip .dot{width:10px;height:10px;border-radius:50%}
+
+    /* CTA */
+    .cta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(90deg,#ff6b9a,#ffd36b);color:#0b0b0d;padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;box-shadow:0 10px 30px rgba(255,110,90,0.14);transition:transform .18s}
+    .btn-primary:active{transform:translateY(2px)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:12px;color:rgba(255,255,255,0.95);cursor:pointer}
+
+    /* meta box */
+    .meta{width:260px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);font-size:14px;color:rgba(255,255,255,0.9)}
+    .meta h4{font-size:13px;color:#ffd36b;margin-bottom:8px}
+    .meta .line{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px dashed rgba(255,255,255,0.03)}
+    .meta .val{font-weight:800;color:#fff}
+
+    footer.small{margin-top:18px;color:rgba(255,255,255,0.55);font-size:13px;text-align:center}
+
+    /* extra sections */
+    .section{
+      width:min(1200px,96%);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.55)
+    }
+    .section h3{font-size:18px;margin-bottom:12px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .card-small{background:rgba(0,0,0,0.55);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+
+    pre.code{
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;overflow:auto;font-size:13px;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    /* responsive */
+    @media (max-width:1020px){
+      .card{flex-direction:column;align-items:center;padding:18px}
+      .hero{width:92%;height:260px}
+      .meta{width:92%}
+      .name{font-size:44px;text-align:center}
+      .content{text-align:center}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .name{font-size:36px}
+      .hero{height:200px}
+    }
+
+    /* fancy underline */
+    .underline{display:inline-block;position:relative;padding-bottom:6px}
+    .underline::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:20px;background:linear-gradient(90deg,#ff6b9a,#ffd36b);transform:scaleX(0);transform-origin:left center;transition:transform .6s;opacity:0.95}
+    .card:hover .underline::after{transform:scaleX(1)}
+
+    /* utilities */
+    .muted{color:rgba(255,255,255,0.6);font-size:13px}
+    .flex-row{display:flex;gap:10px;align-items:center}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+  </style>
+</head>
 <body>
-<div class="bg"></div>
-<div class="grain"></div>
-<div class="cursor"></div>
+  <!-- BACKGROUNDS -->
+  <div class="bg" style="background-image:url('bg.jpg')"></div>
+  <div class="grain"></div>
 
-<div class="wrap">
-<div class="card" id="heroCard">
-<div class="hero">
-  <div class="badge">GTA RP</div>
-  <img src="car.jpg" alt="BMW Banner">
-</div>
-<div class="content">
-<div class="name-wrap">
-  <div class="name underline">Xatar Majestic</div>
-  <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
-</div>
-<p class="desc">Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung. Aktueller Status: <strong>Database: Coden gerade</strong>.</p>
-<div class="skills">
-  <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
-  <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
-  <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
-  <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
-  <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
-</div>
-<div class="cta">
-<a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank">Discord: xatar.mj</a>
-<a class="btn-ghost" href="#portfolio">Portfolio</a>
-</div>
-<footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
-</div>
-<aside class="meta">
-<h4>Kurzinfo</h4>
-<div class="line"><div class="muted">Datenbank</div><div class="val">Coden gerade</div></div>
-<div class="line"><div class="muted">Projekt</div><div class="val">GTA RP Server</div></div>
-<div class="line"><div class="muted">Verfügbar</div><div class="val">Auf Anfragen</div></div>
-</aside>
-</div>
+  <!-- canvas effect -->
+  <canvas id="fx"></canvas>
 
-<section class="section" id="portfolio">
-<h3>Portfolio — Ausgewählte Projekte</h3>
-<div class="grid">
-<div class="card-small"><h4>RP Server Setup</h4><p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p><div class="flex-row"><span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span></div></div>
-<div class="card-small"><h4>Custom Scripts</h4><p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p><div class="flex-row"><span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span></div></div>
-<div class="card-small"><h4>DB Tools</h4><p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p><div class="flex-row"><span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span></div></div>
-</div>
-</section>
+  <div class="wrap">
+    <!-- HERO CARD -->
+    <div class="card" role="banner" id="heroCard">
+      <div class="hero" aria-hidden="true">
+        <div class="badge">GTA RP</div>
+        <img src="car.jpg" alt="BMW Banner" />
+      </div>
 
-<footer style="text-align:center;color:rgba(255,255,255,0.55);font-size:13px;margin-top:20px;">© Xatar Majestic — GTA RP Developer • Alle Rechte vorbehalten.</footer>
+      <div class="content">
+        <div class="title-row">
+          <div class="name-wrap">
+            <div class="name underline">Xatar Majestic</div>
+            <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
+          </div>
+        </div>
 
-<script>
-/* CUSTOM CURSOR */
-const cursor=document.querySelector('.cursor');
-window.addEventListener('mousemove', e=>{cursor.style.top=e.clientY+'px';cursor.style.left=e.clientX+'px';});
-window.addEventListener('mousedown', ()=>cursor.classList.add('click'));
-window.addEventListener('mouseup', ()=>cursor.classList.remove('click'));
+        <p class="desc">
+          Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung.
+          Aktueller Status: <strong>Database: Coden gerade</strong>.
+        </p>
 
-/* HERO PARALLAX */
-const bg=document.querySelector('.bg');
-const heroImg=document.querySelector('.hero img');
-window.addEventListener('mousemove', e=>{
-  const rx=(e.clientX-innerWidth/2)/innerWidth;
-  const ry=(e.clientY-innerHeight/2)/innerHeight;
-  bg.style.transform=`scale(1.03) translate(${rx*10}px,${ry*8}px)`;
-  if(heroImg) heroImg.style.transform=`scale(1.12) translate(${rx*12}px,${ry*8}px)`;
+        <div class="skills" aria-label="Skills">
+          <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
+          <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
+          <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
+          <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
+          <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
+          <span class="chip"><span class="dot" style="background:#6ef7c1"></span>Node.js</span>
+          <span class="chip"><span class="dot" style="background:#d7b3ff"></span>FiveM</span>
+          <span class="chip"><span class="dot" style="background:#ffa8d6"></span>DB/SQL</span>
+        </div>
+
+        <div class="cta">
+          <a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank" rel="noopener noreferrer">Discord: xatar.mj</a>
+          <a class="btn-ghost" href="mailto:youremail@example.com">E‑Mail</a>
+          <a class="btn-ghost" href="#portfolio">Portfolio</a>
+        </div>
+
+        <footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
+      </div>
+
+      <aside class="meta" aria-label="Kurzinfo">
+        <h4>Kurzinfo</h4>
+        <div style="font-size:13px;color:rgba(255,255,255,0.85)">Aktuell</div>
+        <div class="line"><div class="muted">Datenbank</div><div class="val">Coden gerade</div></div>
+        <div class="line"><div class="muted">Projekt</div><div class="val">GTA RP Server</div></div>
+        <div class="line"><div class="muted">Verfügbar</div><div class="val">Auf Anfragen</div></div>
+        <div style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.75)">Skills: JS, HTML, CSS, Python, C++, Node</div>
+      </aside>
+    </div>
+
+    <!-- PORTFOLIO / PROJECTS -->
+    <section class="section" id="portfolio" aria-label="Portfolio">
+      <h3>Portfolio — Ausgewählte Projekte</h3>
+      <div class="grid" role="list">
+        <div class="card-small" role="listitem">
+          <h4 style="margin-bottom:8px">RP Server Setup</h4>
+          <p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p>
+          <div style="margin-top:8px" class="flex-row">
+            <span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span>
+          </div>
+        </div>
+        <div class="card-small" role="listitem">
+          <h4 style="margin-bottom:8px">Custom Scripts</h4>
+          <p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p>
+          <div style="margin-top:8px" class="flex-row">
+            <span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span>
+          </div>
+        </div>
+        <div class="card-small" role="listitem">
+          <h4 style="margin-bottom:8px">DB Tools</h4>
+          <p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p>
+          <div style="margin-top:8px" class="flex-row">
+            <span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODE SNIPPETS -->
+    <section class="section" aria-label="Code-Beispiele">
+      <h3>Code Beispiele (Demo)</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <pre class="code" style="flex:1;min-width:260px;">
+// JS: Einfacher Event-Handler (Demo)
+document.addEventListener('keydown', e => {
+  if (e.key === 'f') {
+    console.log('Fired: Xatar Majestic — Demo Event');
+    // Zeige kurze Animation
+    const el = document.querySelector('.name');
+    if (el) {
+      el.style.transition = 'transform .45s ease';
+      el.style.transform = 'scale(1.04) rotate(-1deg)';
+      setTimeout(()=> el.style.transform = '', 900);
+    }
+  }
 });
+        </pre>
 
-/* PARTICLES */
-const canvas=document.createElement('canvas');canvas.id='fx';document.body.appendChild(canvas);
-const ctx=canvas.getContext('2d');let W=canvas.width=innerWidth,H=canvas.height=innerHeight;
-window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight;});
-function rand(a,b){return Math.random()*(b-a)+a;}
-class Particle{constructor(){this.reset();}reset(){this.x=rand(0,W);this.y=H+rand(0,300);this.vx=rand(-1.2,1.2);this.vy=rand(-3.2,-0.6);this.size=rand(6,38);this.life=rand(80,200);this.age=0;this.h=rand(-10,40);}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.995;this.vy-=0.002;this.age++;if(this.age>this.life||this.y<-120)this.reset();}draw(){const t=this.age/this.life;const alpha=Math.max(0,1-t);const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);g.addColorStop(0,`hsla(${30+this.h},95%,62%,${alpha})`);g.addColorStop(0.45,`hsla(${12+this.h},95%,48%,${alpha*0.6})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
-const particles=[];for(let i=0;i<180;i++)particles.push(new Particle());
-function frame(){ctx.clearRect(0,0,W,H);const gg=ctx.createLinearGradient(0,0,0,H);gg.addColorStop(0,'rgba(0,0,0,0)');gg.addColorStop(1,'rgba(0,0,0,0.25)');ctx.fillStyle=gg;ctx.fillRect(0,0,W,H);for(const p of particles){p.update();p.draw();}requestAnimationFrame(frame);}frame();
-</script>
+        <pre class="code" style="flex:1;min-width:260px;">
+// Node.js Minimalserver (Demo)
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type':'text/plain'});
+  res.end('Xatar Majestic — Server läuft');
+});
+server.listen(3000, () => console.log('Listening on :3000'));
+        </pre>
+
+        <pre class="code" style="flex:1;min-width:260px;">
+-- SQL: Beispiel-Table (Demo)
+CREATE TABLE players (
+  id INT PRIMARY KEY,
+  name VARCHAR(80),
+  money INT DEFAULT 0,
+  job VARCHAR(60)
+);
+        </pre>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" aria-label="Kontakt">
+      <h3>Kontakt</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:260px">
+          <p class="muted">Discord: <strong>xatar.mj</strong> — <a href="https://discord.com/users/1479375267632910451" target="_blank" rel="noopener noreferrer" style="color:#ffd36b">Direkt öffnen</a></p>
+          <p class="muted">Status: <strong>Database: Coden gerade</strong></p>
+          <p class="muted">E‑Mail: <code>youremail@example.com</code> (ersetzen)</p>
+        </div>
+
+        <div style="flex:1;min-width:260px">
+          <form id="contactForm" onsubmit="return false" style="display:flex;flex-direction:column;gap:8px">
+            <input id="name" placeholder="Dein Name" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.45);color:#fff" />
+            <input id="email" placeholder="Deine E‑Mail" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.45);color:#fff" />
+            <textarea id="msg" placeholder="Kurz beschreiben, was du brauchst" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.45);color:#fff"></textarea>
+            <div style="display:flex;gap:8px">
+              <button class="btn-primary" onclick="fakeSubmit()">Nachricht senden</button>
+              <button class="btn-ghost" type="reset">Zurücksetzen</button>
+            </div>
+            <div id="sent" style="color:#b9ffda;display:none;margin-top:8px">Nachricht lokal simuliert (Demo) — Discord öffnen zum DM.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="width:min(1200px,96%);text-align:center;color:rgba(255,255,255,0.55);font-size:13px">
+      © Xatar Majestic — GTA RP Developer • Alle Rechte vorbehalten.
+    </footer>
+
+  </div>
+
+  <script>
+    /* ===========================
+       Canvas: Fire / Particle effect
+       =========================== */
+    const canvas = document.getElementById('fx');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = innerWidth;
+    let H = canvas.height = innerHeight;
+    window.addEventListener('resize', ()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight;});
+
+    function rand(a,b){return Math.random()*(b-a)+a}
+
+    class Particle {
+      constructor(){
+        this.reset();
+      }
+      reset(){
+        this.x = rand(0,W);
+        this.y = H + rand(0,300);
+        this.vx = rand(-1.2,1.2);
+        this.vy = rand(-3.2,-0.6);
+        this.size = rand(6,38);
+        this.life = rand(80,200);
+        this.age = 0;
+        this.h = rand(-10,40);
+      }
+      update(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= 0.995;
+        this.vy -= 0.002;
+        this.age++;
+        if(this.age > this.life || this.y < -120) this.reset();
+      }
+      draw(){
+        const t = this.age / this.life;
+        const alpha = Math.max(0, 1 - t);
+        const g = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);
+        g.addColorStop(0, `hsla(${30+this.h},95%,62%,${alpha})`);
+        g.addColorStop(0.45, `hsla(${12+this.h},95%,48%,${alpha*0.6})`);
+        g.addColorStop(1, `rgba(0,0,0,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    const particles = [];
+    for(let i=0;i<140;i++) particles.push(new Particle());
+
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      // subtle dark gradient
+      const gg = ctx.createLinearGradient(0,0,0,H);
+      gg.addColorStop(0,'rgba(0,0,0,0)');
+      gg.addColorStop(1,'rgba(0,0,0,0.25)');
+      ctx.fillStyle = gg; ctx.fillRect(0,0,W,H);
+
+      for(const p of particles){ p.update(); p.draw(); }
+      requestAnimationFrame(frame);
+    }
+    frame();
+
+    /* ===========================
+       Parallax mouse
+       =========================== */
+    const bg = document.querySelector('.bg');
+    const heroImg = document.querySelector('.hero img');
+    window.addEventListener('mousemove', e=>{
+      const rx = (e.clientX - innerWidth/2)/innerWidth;
+      const ry = (e.clientY - innerHeight/2)/innerHeight;
+      bg.style.transform = `scale(1.03) translate(${rx*10}px,${ry*8}px)`;
+      if(heroImg) heroImg.style.transform = `scale(1.12) translate(${rx*12}px,${ry*8}px)`;
+    });
+
+    /* ===========================
+       Small interactions
+       =========================== */
+    let secret = '';
+    window.addEventListener('keydown', e=>{
+      secret += e.key;
+      if(secret.endsWith('majestic')){
+        const el=document.querySelector('.name');
+        if(el){
+          el.style.transition='transform .6s cubic-bezier(.2,.9,.3,1)';
+          el.style.transform='scale(1.05) rotate(-1.2deg)';
+          setTimeout(()=>{el.style.transform='';},2200);
+        }
+      }
+      if(secret.length>40) secret = secret.slice(-30);
+    });
+
+    /* fake contact submit (demo only) */
+    function fakeSubmit(){
+      const n = document.getElementById('name').value || 'Anonym';
+      const email = document.getElementById('email').value || '—';
+      const msg = document.getElementById('msg').value || '';
+      console.log('Kontakt Demo', {n,email,msg});
+      document.getElementById('sent').style.display='block';
+      setTimeout(()=>document.getElementById('sent').style.display='none',4000);
+      // Hinweis: Diese Demo schickt nichts weg; implementiere serverseitig für echte Mails.
+    }
+
+    /* intersection reveal */
+    const heroCard = document.getElementById('heroCard');
+    const io = new IntersectionObserver(entries=>{
+      for(const e of entries) if(e.isIntersecting) heroCard.style.transform='translateY(0)';
+    }, {threshold:0.12});
+    io.observe(heroCard);
+
+  </script>
 </body>
 </html>
