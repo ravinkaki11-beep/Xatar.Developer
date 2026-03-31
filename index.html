@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Xatar Majestic — Ultimate GTA RP Hub</title>
 <meta name="theme-color" content="#0b0b0f">
-
-<!-- Google Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 
 <style>
@@ -114,85 +112,69 @@ footer.small{margin-top:18px;color:rgba(255,255,255,0.55);font-size:13px;text-al
 .fadeInUp{opacity:0;transform:translateY(20px);animation:fadeInUp .6s forwards;}
 @keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
 </style>
-</head>
-<body>
 
-<!-- BACKGROUND -->
+<body>
 <div class="bg"></div>
 <div class="grain"></div>
 <div class="cursor"></div>
 
-<!-- MAIN WRAPPER -->
 <div class="wrap">
 
-  <!-- HERO CARD -->
-  <div class="card" role="banner" id="heroCard">
-    <div class="hero" aria-hidden="true">
-      <div class="badge">GTA RP</div>
-      <img src="car.jpg" alt="BMW Banner" />
-    </div>
-    <div class="content">
-      <div class="name-wrap">
-        <div class="name underline">Xatar Majestic</div>
-        <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
-      </div>
-      <p class="desc">Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung. Aktueller Status: <strong>Database: Coden gerade</strong>.</p>
-      <div class="skills" aria-label="Skills">
-        <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
-        <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
-        <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
-        <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
-        <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
-        <span class="chip"><span class="dot" style="background:#6ef7c1"></span>Node.js</span>
-        <span class="chip"><span class="dot" style="background:#d7b3ff"></span>FiveM</span>
-        <span class="chip"><span class="dot" style="background:#ffa8d6"></span>DB/SQL</span>
-      </div>
-      <div class="cta">
-        <a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank">Discord: xatar.mj</a>
-        <a class="btn-ghost" href="#portfolio">Portfolio</a>
-      </div>
-      <footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
-    </div>
-    <aside class="meta" aria-label="Kurzinfo">
-      <h4>Kurzinfo</h4>
-      <div class="line"><div class="muted">Datenbank</div><div class="val">Coden gerade</div></div>
-      <div class="line"><div class="muted">Projekt</div><div class="val">GTA RP Server</div></div>
-      <div class="line"><div class="muted">Verfügbar</div><div class="val">Auf Anfragen</div></div>
-    </aside>
-  </div>
-
-  <!-- PORTFOLIO GRID -->
-  <section class="section" id="portfolio">
-    <h3>Portfolio — Ausgewählte Projekte</h3>
-    <div class="grid" role="list">
-      <div class="card-small" role="listitem">
-        <h4>RP Server Setup</h4>
-        <p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p>
-        <div class="flex-row"><span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span></div>
-      </div>
-      <div class="card-small" role="listitem">
-        <h4>Custom Scripts</h4>
-        <p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p>
-        <div class="flex-row"><span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span></div>
-      </div>
-      <div class="card-small" role="listitem">
-        <h4>DB Tools</h4>
-        <p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p>
-        <div class="flex-row"><span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span></div>
-      </div>
-    </div>
-  </section>
+<!-- HERO CARD -->
+<div class="card" id="heroCard">
+<div class="hero">
+  <div class="badge">GTA RP</div>
+  <img src="car.jpg" alt="BMW Banner" />
 </div>
+<div class="content">
+  <div class="name-wrap">
+    <div class="name underline">Xatar Majestic</div>
+    <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
+  </div>
+  <p class="desc">Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung. Aktueller Status: <strong>Database: Coden gerade</strong>.</p>
+  <div class="skills">
+    <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
+    <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
+    <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
+    <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
+    <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
+    <span class="chip"><span class="dot" style="background:#6ef7c1"></span>Node.js</span>
+    <span class="chip"><span class="dot" style="background:#d7b3ff"></span>FiveM</span>
+    <span class="chip"><span class="dot" style="background:#ffa8d6"></span>DB/SQL</span>
+  </div>
+  <div class="cta">
+    <a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank">Discord: xatar.mj</a>
+    <a class="btn-ghost" href="#portfolio">Portfolio</a>
+  </div>
+  <footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
+</div>
+<aside class="meta">
+<h4>Kurzinfo</h4>
+<div class="line"><div class="muted">Datenbank</div><div class="val">Coden gerade</div></div>
+<div class="line"><div class="muted">Projekt</div><div class="val">GTA RP Server</div></div>
+<div class="line"><div class="muted">Verfügbar</div><div class="val">Auf Anfragen</div></div>
+</aside>
+</div>
+
+<!-- PORTFOLIO GRID -->
+<section class="section" id="portfolio">
+<h3>Portfolio — Ausgewählte Projekte</h3>
+<div class="grid">
+  <div class="card-small"><h4>RP Server Setup</h4><p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p>
+  <div class="flex-row"><span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span></div></div>
+  <div class="card-small"><h4>Custom Scripts</h4><p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p>
+  <div class="flex-row"><span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span></div></div>
+  <div class="card-small"><h4>DB Tools</h4><p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p>
+  <div class="flex-row"><span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span></div></div>
+</div>
+</section>
 
 <script>
 /* ===========================
-   CUSTOM CURSOR JS
+   CUSTOM CURSOR
 =========================== */
 const cursor=document.querySelector('.cursor');
-window.addEventListener('mousemove', e=>{
-  cursor.style.top=e.clientY+'px';
-  cursor.style.left=e.clientX+'px';
-});
+window.addEventListener('mousemove', e=>{cursor.style.top=e.clientY+'px';cursor.style.left=e.clientX+'px';});
 window.addEventListener('mousedown', ()=>cursor.classList.add('click'));
 window.addEventListener('mouseup', ()=>cursor.classList.remove('click'));
 
@@ -209,16 +191,15 @@ window.addEventListener('mousemove', e=>{
 });
 
 /* ===========================
-   PARTICLES / FIRE EFFECT
+   FIRE PARTICLES
 =========================== */
 const canvas=document.createElement('canvas');canvas.id='fx';document.body.appendChild(canvas);
 const ctx=canvas.getContext('2d');let W=canvas.width=innerWidth,H=canvas.height=innerHeight;
 window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight;});
 function rand(a,b){return Math.random()*(b-a)+a;}
 class Particle{constructor(){this.reset();}reset(){this.x=rand(0,W);this.y=H+rand(0,300);this.vx=rand(-1.2,1.2);this.vy=rand(-3.2,-0.6);this.size=rand(6,38);this.life=rand(80,200);this.age=0;this.h=rand(-10,40);}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.995;this.vy-=0.002;this.age++;if(this.age>this.life||this.y<-120)this.reset();}draw(){const t=this.age/this.life;const alpha=Math.max(0,1-t);const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);g.addColorStop(0,`hsla(${30+this.h},95%,62%,${alpha})`);g.addColorStop(0.45,`hsla(${12+this.h},95%,48%,${alpha*0.6})`);g.addColorStop(1,`rgba(0,0,0,0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
-const particles=[];for(let i=0;i<160;i++)particles.push(new Particle());
+const particles=[];for(let i=0;i<200;i++)particles.push(new Particle());
 function frame(){ctx.clearRect(0,0,W,H);const gg=ctx.createLinearGradient(0,0,0,H);gg.addColorStop(0,'rgba(0,0,0,0)');gg.addColorStop(1,'rgba(0,0,0,0.25)');ctx.fillStyle=gg;ctx.fillRect(0,0,W,H);for(const p of particles){p.update();p.draw();}requestAnimationFrame(frame);}frame();
 </script>
-
 </body>
 </html>
