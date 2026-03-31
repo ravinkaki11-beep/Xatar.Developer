@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Xatar Majestic — GTA RP Developer</title>
+  <style>
+    /* Reset & basics */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Inter,Segoe UI,Roboto,system-ui,-apple-system, "Helvetica Neue", Arial;color:#fff}
+    a{color:inherit;text-decoration:none}
+
+    /* Background */
+    .bg{
+      position:fixed;inset:0;z-index:-3;overflow:hidden;
+      background:#000;
+      background-size:cover;background-position:center;
+      filter:contrast(1.05) saturate(1.1);
+    }
+    .bg::before{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
+      z-index:1;
+    }
+
+    /* Fire/particle overlay (canvas) */
+    #fx{position:fixed;inset:0;z-index:-1;pointer-events:none;mix-blend-mode:screen;opacity:0.85}
+
+    /* Main container */
+    .wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center}
+
+    /* Banner / card */
+    .card{
+      width:min(1100px,96%);background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06);backdrop-filter: blur(6px);
+      padding:28px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      display:flex;gap:24px;align-items:center;
+    }
+
+    .hero-img{
+      flex:0 0 300px;height:170px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      display:flex;align-items:center;justify-content:center;
+    }
+    .hero-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);filter:brightness(0.9) contrast(1.05)}
+
+    .content{flex:1;text-align:left}
+    .title{font-size:34px;font-weight:700;letter-spacing:0.6px;margin-bottom:8px}
+    .subtitle{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:18px}
+
+    .skills{
+      display:flex;flex-wrap:wrap;gap:10px;
+    }
+    .chip{
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      padding:8px 12px;border-radius:999px;font-weight:600;font-size:13px;border:1px solid rgba(255,255,255,0.05);
+      display:inline-flex;align-items:center;gap:8px;
+    }
+
+    .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(90deg,#ff5f6d,#ffc371);color:#111;padding:10px 16px;border-radius:10px;font-weight:700;border:none;cursor:pointer;
+      box-shadow:0 6px 18px rgba(255,110,90,0.18);
+    }
+    .ghost{
+      background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:10px;color:rgba(255,255,255,0.95);cursor:pointer;
+    }
+
+    /* small screens */
+    @media (max-width:800px){
+      .card{flex-direction:column;align-items:center;text-align:center}
+      .content{text-align:center}
+      .hero-img{width:90%;height:200px}
+    }
+
+    /* animated glowing name */
+    .glow{
+      display:inline-block;padding:4px 8px;border-radius:6px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      box-shadow:0 0 30px rgba(255,120,60,0.08);
+    }
+    .name{
+      font-family:"Bebas Neue", Impact, sans-serif;font-size:44px;letter-spacing:1px;
+      background:linear-gradient(90deg,#ffd36b,#ff6b9a);-webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 6px 30px rgba(255,80,60,0.06);
+    }
+
+    footer{margin-top:26px;color:rgba(255,255,255,0.6);font-size:13px}
+  </style>
+</head>
+<body>
+  <!-- Background image: set your own file named "bg.jpg" in repo, or change path -->
+  <div class="bg" style="background-image:url('bg.jpg')"></div>
+
+  <!-- Canvas for particle/fire effect -->
+  <canvas id="fx"></canvas>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="hero-img">
+        <!-- optional small logo or car crop -->
+        <img src="car.jpg" alt="BMW" />
+      </div>
+
+      <div class="content">
+        <div class="glow">
+          <div class="title name">Xatar Majestic</div>
+        </div>
+        <div class="subtitle">GTA RP Developer — DM ME for jobs, scripts & servers</div>
+
+        <div class="skills" aria-hidden="false">
+          <span class="chip">JS</span>
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">Python</span>
+          <span class="chip">C++</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">FiveM / GTA RP</span>
+          <span class="chip">Server Ops</span>
+          <span class="chip">Mods & Scripts</span>
+        </div>
+
+        <div class="cta">
+          <a class="btn" href="mailto:youremail@example.com">DM ME</a>
+          <a class="ghost" href="#portfolio">Portfolio</a>
+        </div>
+
+        <footer>Projekte • Support • Individuelle Skripte</footer>
+      </div>
+    </div>
+
+    <p style="margin-top:16px;color:rgba(255,255,255,0.6);font-size:13px">Tipp: Ersetze "bg.jpg" und "car.jpg" mit eigenen Bildern oder freien Bildern von Unsplash/Pexels.</p>
+  </div>
+
+  <script>
+    /* Simple particle + fire-like effect on canvas */
+    const canvas = document.getElementById('fx');
+    const ctx = canvas.getContext('2d');
+    let w,h,particles=[];
+    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
+    addEventListener('resize',resize);resize();
+
+    function rand(a,b){return Math.random()*(b-a)+a}
+    class P{
+      constructor(){
+        this.reset();
+      }
+      reset(){
+        this.x = rand(0,w);
+        this.y = h + rand(10,200);
+        this.vx = rand(-0.6,0.6);
+        this.vy = rand(-1.8,-0.4);
+        this.life = rand(60,160);
+        this.age = 0;
+        this.size = rand(6,28);
+        this.h = rand(0,40); // hue shift
+      }
+      update(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= 0.995;
+        this.vy -= 0.004; // gentle rise
+        this.age++;
+        if(this.age>this.life || this.y<-50) this.reset();
+      }
+      draw(){
+        const t = this.age/this.life;
+        const alpha = Math.max(0,1 - t);
+        const g = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);
+        g.addColorStop(0, `hsla(${30+this.h},100%,65%,${alpha})`);
+        g.addColorStop(0.4, `hsla(${10+this.h},100%,45%,${alpha*0.6})`);
+        g.addColorStop(1, `rgba(0,0,0,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    for(let i=0;i<90;i++) particles.push(new P());
+
+    function loop(){
+      ctx.clearRect(0,0,w,h);
+      // subtle vignette
+      const grd = ctx.createLinearGradient(0,0,0,h);
+      grd.addColorStop(0,'rgba(0,0,0,0)');
+      grd.addColorStop(1,'rgba(0,0,0,0.2)');
+      ctx.fillStyle = grd; ctx.fillRect(0,0,w,h);
+
+      for(let p of particles){
+        p.update();
+        p.draw();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    // small parallax for background and hero
+    const bg = document.querySelector('.bg');
+    const heroImg = document.querySelector('.hero-img img');
+    addEventListener('mousemove', e=>{
+      const rx = (e.clientX - innerWidth/2)/innerWidth;
+      const ry = (e.clientY - innerHeight/2)/innerHeight;
+      bg.style.transform = `scale(1.02) translate(${rx*6}px,${ry*6}px)`;
+      if(heroImg) heroImg.style.transform = `scale(1.06) translate(${rx*8}px,${ry*8}px)`;
+    });
+
+  </script>
+</body>
+</html>
