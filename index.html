@@ -3,48 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Xatar Majestic — Ultimate GTA RP Hub</title>
+<title>Xatar Majestic — GTA RP Hub</title>
 <meta name="theme-color" content="#0b0b0f">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-
 <style>
-/* ===========================
-   RESET & BASE
-=========================== */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;font-family:'Inter',system-ui,sans-serif;color:#fff;background:#050407;overflow-x:hidden;}
+/* RESET & BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Inter',sans-serif;background:#050407;color:#fff;overflow-x:hidden;}
 img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 button{font:inherit;cursor:pointer;}
 
-/* ===========================
-   BODY BACKGROUND + PARTICLES
-=========================== */
-.bg{position:fixed;inset:0;background:#050407 url('bg.jpg') center/cover no-repeat;z-index:-10;transform-origin:center;transition:transform .75s ease;filter:contrast(1.08) saturate(1.15);}
+/* BACKGROUNDS & PARTICLES */
+.bg{position:fixed;inset:0;background:#050407 url('bg.jpg') center/cover no-repeat;z-index:-10;transition:transform .75s ease;}
 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.65));pointer-events:none;}
-.grain{position:fixed;inset:0;z-index:-9;opacity:0.06;pointer-events:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="t"><feTurbulence baseFrequency="0.85" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23t)"/></svg>');background-size:320px 320px;mix-blend-mode:overlay;}
+.grain{position:fixed;inset:0;z-index:-9;opacity:0.05;pointer-events:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="t"><feTurbulence baseFrequency="0.85" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23t)"/></svg>');background-size:320px 320px;mix-blend-mode:overlay;}
 
-/* ===========================
-   CUSTOM CURSOR
-=========================== */
-.cursor {
-  position: fixed;
-  top:0; left:0;
-  width:24px;
-  height:24px;
-  border:2px solid #ff6b9a;
-  border-radius:50%;
-  transform:translate(-50%, -50%);
-  pointer-events:none;
-  transition: transform .1s ease-out, width .15s ease, height .15s ease, background .3s ease;
-  z-index:9999;
-}
+/* CUSTOM CURSOR */
+.cursor{position:fixed;top:0;left:0;width:24px;height:24px;border:2px solid #ff6b9a;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition: transform .1s ease,width .15s ease,height .15s ease,background .3s ease;z-index:9999;}
 .cursor.active{width:40px;height:40px;background:rgba(255,107,154,0.25);}
 .cursor.click{background:#ff6b9a;transform:translate(-50%,-50%) scale(0.8);}
 
-/* ===========================
-   MAIN WRAPPER & HERO CARD
-=========================== */
+/* WRAPPER & HERO */
 .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;gap:24px;}
 .card{display:flex;flex-wrap:wrap;gap:26px;align-items:center;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(10px);padding:28px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,0.6);transition:transform .45s ease;}
 .card:hover{transform:translateY(-12px);}
@@ -53,9 +33,7 @@ button{font:inherit;cursor:pointer;}
 .card:hover .hero img{transform:scale(1.12) translateY(-6px);}
 .badge{position:absolute;left:14px;top:14px;background:linear-gradient(90deg,#ff7a00,#ff2d95);padding:6px 10px;border-radius:999px;font-weight:800;color:#09060b;font-size:13px;box-shadow:0 6px 18px rgba(255,90,70,0.14);}
 
-/* ===========================
-   CONTENT & SKILLS
-=========================== */
+/* CONTENT & SKILLS */
 .content{flex:1;padding:6px 4px;}
 .name-wrap{display:flex;flex-direction:column;gap:6px;}
 .name{font-family:'Bebas Neue',Impact,sans-serif;font-size:56px;background:linear-gradient(90deg,#ffd36b,#ff6b9a);-webkit-background-clip:text;color:transparent;text-shadow:0 10px 40px rgba(255,80,60,0.06);}
@@ -66,87 +44,64 @@ button{font:inherit;cursor:pointer;}
 .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);font-weight:700;font-size:13px;}
 .chip .dot{width:10px;height:10px;border-radius:50%;}
 
-/* ===========================
-   CTA BUTTONS
-=========================== */
+/* CTA */
 .cta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
 .btn-primary{background:linear-gradient(90deg,#ff6b9a,#ffd36b);color:#0b0b0d;padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;box-shadow:0 10px 30px rgba(255,110,90,0.14);transition:transform .18s;}
 .btn-primary:active{transform:translateY(2px);}
 .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:12px;color:rgba(255,255,255,0.95);}
 
-/* ===========================
-   META BOX
-=========================== */
+/* META BOX */
 .meta{width:260px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);font-size:14px;color:rgba(255,255,255,0.9);}
 .meta h4{font-size:13px;color:#ffd36b;margin-bottom:8px;}
 .meta .line{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px dashed rgba(255,255,255,0.03);}
 .meta .val{font-weight:800;color:#fff;}
 footer.small{margin-top:18px;color:rgba(255,255,255,0.55);font-size:13px;text-align:center;}
 
-/* ===========================
-   MODALS
-=========================== */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;justify-content:center;align-items:center;z-index:9998;}
-.modal{background:rgba(15,15,20,0.95);border:1px solid rgba(255,255,255,0.05);backdrop-filter:blur(6px);padding:20px;border-radius:12px;width:80%;max-width:600px;transform:scale(0.9);transition:all .35s ease;}
-.modal.active{transform:scale(1);}
-
-/* ===========================
-   PORTFOLIO GRID
-=========================== */
+/* PORTFOLIO GRID */
 .section{width:min(1200px,96%);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.55);}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .card-small{background:rgba(0,0,0,0.55);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
 .flex-row{display:flex;gap:10px;align-items:center;}
 .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700;}
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+/* RESPONSIVE */
 @media(max-width:1020px){.card{flex-direction:column;align-items:center;padding:18px}.hero{width:92%;height:260px}.meta{width:92%}.name{font-size:44px;text-align:center}.content{text-align:center}.grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.grid{grid-template-columns:1fr}.name{font-size:36px}.hero{height:200px;}}
 
-/* ===========================
-   ANIMATION UTILITIES
-=========================== */
-@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+/* ANIMATIONS */
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 .fadeInUp{opacity:0;transform:translateY(20px);animation:fadeInUp .6s forwards;}
 @keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
 </style>
-
 <body>
 <div class="bg"></div>
 <div class="grain"></div>
 <div class="cursor"></div>
 
 <div class="wrap">
-
-<!-- HERO CARD -->
 <div class="card" id="heroCard">
 <div class="hero">
   <div class="badge">GTA RP</div>
-  <img src="car.jpg" alt="BMW Banner" />
+  <img src="car.jpg" alt="BMW Banner">
 </div>
 <div class="content">
-  <div class="name-wrap">
-    <div class="name underline">Xatar Majestic</div>
-    <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
-  </div>
-  <p class="desc">Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung. Aktueller Status: <strong>Database: Coden gerade</strong>.</p>
-  <div class="skills">
-    <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
-    <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
-    <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
-    <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
-    <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
-    <span class="chip"><span class="dot" style="background:#6ef7c1"></span>Node.js</span>
-    <span class="chip"><span class="dot" style="background:#d7b3ff"></span>FiveM</span>
-    <span class="chip"><span class="dot" style="background:#ffa8d6"></span>DB/SQL</span>
-  </div>
-  <div class="cta">
-    <a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank">Discord: xatar.mj</a>
-    <a class="btn-ghost" href="#portfolio">Portfolio</a>
-  </div>
-  <footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
+<div class="name-wrap">
+  <div class="name underline">Xatar Majestic</div>
+  <div class="tagline">GTA RP Developer • Scripts • Server • Mods</div>
+</div>
+<p class="desc">Ich entwickle maßgeschneiderte Lösungen für GTA RP: <span class="highlight">Server‑Scripting, Datenbanken, Optimierung</span> und Automatisierung. Aktueller Status: <strong>Database: Coden gerade</strong>.</p>
+<div class="skills">
+  <span class="chip"><span class="dot" style="background:#ffd36b"></span>JS</span>
+  <span class="chip"><span class="dot" style="background:#ff6b9a"></span>HTML</span>
+  <span class="chip"><span class="dot" style="background:#ff8a5c"></span>CSS</span>
+  <span class="chip"><span class="dot" style="background:#ffb86b"></span>Python</span>
+  <span class="chip"><span class="dot" style="background:#9be7ff"></span>C++</span>
+</div>
+<div class="cta">
+<a class="btn-primary" href="https://discord.com/users/1479375267632910451" target="_blank">Discord: xatar.mj</a>
+<a class="btn-ghost" href="#portfolio">Portfolio</a>
+</div>
+<footer class="small">DM für Aufträge • Custom Scripts • Server Setup</footer>
 </div>
 <aside class="meta">
 <h4>Kurzinfo</h4>
@@ -156,31 +111,25 @@ footer.small{margin-top:18px;color:rgba(255,255,255,0.55);font-size:13px;text-al
 </aside>
 </div>
 
-<!-- PORTFOLIO GRID -->
 <section class="section" id="portfolio">
 <h3>Portfolio — Ausgewählte Projekte</h3>
 <div class="grid">
-  <div class="card-small"><h4>RP Server Setup</h4><p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p>
-  <div class="flex-row"><span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span></div></div>
-  <div class="card-small"><h4>Custom Scripts</h4><p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p>
-  <div class="flex-row"><span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span></div></div>
-  <div class="card-small"><h4>DB Tools</h4><p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p>
-  <div class="flex-row"><span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span></div></div>
+<div class="card-small"><h4>RP Server Setup</h4><p class="muted">Komplette Server-Konfiguration, Performance-Tweaks, Anti-Cheat, Rollen & Permissions.</p><div class="flex-row"><span class="pill">FiveM</span><span class="pill">DB</span><span class="pill">Optimierung</span></div></div>
+<div class="card-small"><h4>Custom Scripts</h4><p class="muted">Individuelle Scripts für Jobs, UI-Integrationen und Server-Events.</p><div class="flex-row"><span class="pill">Lua</span><span class="pill">JS</span><span class="pill">Node</span></div></div>
+<div class="card-small"><h4>DB Tools</h4><p class="muted">Datenbank-Schemas, Backups, Migrations-Tools und Query-Optimierung.</p><div class="flex-row"><span class="pill">SQL</span><span class="pill">Backup</span><span class="pill">Scripts</span></div></div>
 </div>
 </section>
 
+<footer style="text-align:center;color:rgba(255,255,255,0.55);font-size:13px;margin-top:20px;">© Xatar Majestic — GTA RP Developer • Alle Rechte vorbehalten.</footer>
+
 <script>
-/* ===========================
-   CUSTOM CURSOR
-=========================== */
+/* CUSTOM CURSOR */
 const cursor=document.querySelector('.cursor');
 window.addEventListener('mousemove', e=>{cursor.style.top=e.clientY+'px';cursor.style.left=e.clientX+'px';});
 window.addEventListener('mousedown', ()=>cursor.classList.add('click'));
 window.addEventListener('mouseup', ()=>cursor.classList.remove('click'));
 
-/* ===========================
-   HERO PARALLAX
-=========================== */
+/* HERO PARALLAX */
 const bg=document.querySelector('.bg');
 const heroImg=document.querySelector('.hero img');
 window.addEventListener('mousemove', e=>{
@@ -190,15 +139,13 @@ window.addEventListener('mousemove', e=>{
   if(heroImg) heroImg.style.transform=`scale(1.12) translate(${rx*12}px,${ry*8}px)`;
 });
 
-/* ===========================
-   FIRE PARTICLES
-=========================== */
+/* PARTICLES */
 const canvas=document.createElement('canvas');canvas.id='fx';document.body.appendChild(canvas);
 const ctx=canvas.getContext('2d');let W=canvas.width=innerWidth,H=canvas.height=innerHeight;
 window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight;});
 function rand(a,b){return Math.random()*(b-a)+a;}
-class Particle{constructor(){this.reset();}reset(){this.x=rand(0,W);this.y=H+rand(0,300);this.vx=rand(-1.2,1.2);this.vy=rand(-3.2,-0.6);this.size=rand(6,38);this.life=rand(80,200);this.age=0;this.h=rand(-10,40);}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.995;this.vy-=0.002;this.age++;if(this.age>this.life||this.y<-120)this.reset();}draw(){const t=this.age/this.life;const alpha=Math.max(0,1-t);const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);g.addColorStop(0,`hsla(${30+this.h},95%,62%,${alpha})`);g.addColorStop(0.45,`hsla(${12+this.h},95%,48%,${alpha*0.6})`);g.addColorStop(1,`rgba(0,0,0,0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
-const particles=[];for(let i=0;i<200;i++)particles.push(new Particle());
+class Particle{constructor(){this.reset();}reset(){this.x=rand(0,W);this.y=H+rand(0,300);this.vx=rand(-1.2,1.2);this.vy=rand(-3.2,-0.6);this.size=rand(6,38);this.life=rand(80,200);this.age=0;this.h=rand(-10,40);}update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.995;this.vy-=0.002;this.age++;if(this.age>this.life||this.y<-120)this.reset();}draw(){const t=this.age/this.life;const alpha=Math.max(0,1-t);const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.size*1.8);g.addColorStop(0,`hsla(${30+this.h},95%,62%,${alpha})`);g.addColorStop(0.45,`hsla(${12+this.h},95%,48%,${alpha*0.6})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
+const particles=[];for(let i=0;i<180;i++)particles.push(new Particle());
 function frame(){ctx.clearRect(0,0,W,H);const gg=ctx.createLinearGradient(0,0,0,H);gg.addColorStop(0,'rgba(0,0,0,0)');gg.addColorStop(1,'rgba(0,0,0,0.25)');ctx.fillStyle=gg;ctx.fillRect(0,0,W,H);for(const p of particles){p.update();p.draw();}requestAnimationFrame(frame);}frame();
 </script>
 </body>
